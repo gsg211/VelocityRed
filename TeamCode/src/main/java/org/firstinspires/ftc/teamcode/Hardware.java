@@ -13,7 +13,9 @@ public class Hardware {
     public DcMotor backLeftMotor = null;
     public DcMotor wheelMotor = null;
 
-    //public Servo servoSlider = null;
+    public Servo servoSlider = null;
+    public Servo servoGlisiera = null;
+    public Servo servoCarusel = null;
     HardwareMap hardwareMap = null;
 
     public ElapsedTime Runtime = new ElapsedTime();
@@ -32,7 +34,9 @@ public class Hardware {
         wheelMotor=hardwareMap.get(DcMotor.class,"wheelMotor");
 
         //servos
-        //servoSlider=hardwareMap.get(Servo.class,"servoSlider");
+        servoSlider=hardwareMap.get(Servo.class,"servoSlider");
+        servoGlisiera=hardwareMap.get(Servo.class,"servoglisiera");
+        servoCarusel=hardwareMap.get(Servo.class,"servoCarusel");
 
 
         //setup motor direction
