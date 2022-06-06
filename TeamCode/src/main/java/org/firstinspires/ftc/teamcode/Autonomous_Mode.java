@@ -15,9 +15,10 @@ public class Autonomous_Mode extends LinearOpMode {
     DcMotor backRightMotor;
     DcMotor backLeftMotor;
     DcMotor wheelMotor;
+    DcMotor caruselMotor;
     Servo servoSlider;
     CRServo servoGlisiera;
-    CRServo servoCarusel;
+
 
     public void assignComponents() {
         frontRightMotor= (DcMotor) hardwareMap.get("frontRightMotor");
@@ -27,7 +28,7 @@ public class Autonomous_Mode extends LinearOpMode {
         wheelMotor=(DcMotor) hardwareMap.get("wheelMotor");
         servoSlider=(Servo) hardwareMap.get("servoSlider");
         servoGlisiera=(CRServo) hardwareMap.get("servoGlisiera");
-        servoCarusel=(CRServo) hardwareMap.get("servoCarusel");
+       caruselMotor=(DcMotor) hardwareMap.get("caruselMotor");
     }
 
     public void move_forward(long milisecunde){
@@ -83,7 +84,7 @@ public class Autonomous_Mode extends LinearOpMode {
     }
      public void move_carusel(long milisecunde){
             try{
-                servoCarusel.setPower(-1);
+                caruselMotor.setPower(-0.6);
                 Thread.sleep(milisecunde);
             }
             catch (Exception e){
@@ -112,12 +113,21 @@ public class Autonomous_Mode extends LinearOpMode {
         }
     }
 
-    public void throw_cube() {
-            servoSlider.setPosition(0.9);
+    public void stop_carusel(){
+        caruselMotor.setPower(0);
+    }
+    public void throw_cube(long milisecunde) {
+        try {
+            servoSlider.setPosition(-1);
+            Thread.sleep(milisecunde);
+        }
+        catch(Exception e){
+            System.out.println(e);
+        }
     }
 
     public void back_cube(){
-            servoSlider.setPosition(-0.2);
+            servoSlider.setPosition(1);
     }
 
     public void stop_move(){
@@ -127,13 +137,31 @@ public class Autonomous_Mode extends LinearOpMode {
         backLeftMotor.setPower(0);
     }
 
+    public void rotate_counter_clockwise(long milisecunde)
+    {
+        try {
+            frontRightMotor.setPower(0.5);
+            frontLeftMotor.setPower(0.5);
+            backRightMotor.setPower(0.5);
+            backLeftMotor.setPower(0.5);
+            Thread.sleep(milisecunde);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
+    public void stop_glisiera()
+    {
+        servoGlisiera.setPower(0);
+    }
+
     public void rotate_clockwise(long milisecunde)
     {
         try {
-            frontRightMotor.setPower(1);
-            frontLeftMotor.setPower(1);
-            backRightMotor.setPower(1);
-            backLeftMotor.setPower(1);
+            frontRightMotor.setPower(-0.5);
+            frontLeftMotor.setPower(-0.5);
+            backRightMotor.setPower(-0.5);
+            backLeftMotor.setPower(-0.5);
             Thread.sleep(milisecunde);
         } catch (Exception e) {
             System.out.println(e);
@@ -145,21 +173,33 @@ public class Autonomous_Mode extends LinearOpMode {
     {
         assignComponents();
         waitForStart();
-        move_forward(50);
-        move_left(1550);
-        move_backwards(5);
+        move_forward(80);
+        move_left(1320);
+        //move_backwards(40);
         stop_move();
-        move_carusel(8000);
-        rotate_clockwise(200);
-        move_left(300);
-        move_forward(200);
-        rotate_clockwise(500);
-        move_backwards(200);
-        ridicare_glisiera(400);
-        throw_cube();
+        move_carusel(2000);
+        move_forward(300);
+        rotate_counter_clockwise(530);
+        stop_move();
+        stop_carusel();
+        move_right(200);
+        stop_move();
+        move_backwards(1300);
+        stop_move();
+        rotate_counter_clockwise(530);
+        stop_move();
+        move_backwards(270);
+        stop_move();
+        ridicare_glisiera(5500);
+        stop_glisiera();
+        throw_cube(800);
         back_cube();
-        move_left(200);
-        move_backwards(2000);
+        coborare_glisiera(600);
+        move_forward(200);
+        rotate_counter_clockwise(660);
+        stop_move();
+        //move_left(700);
+        move_forward(2700);
 
 
 

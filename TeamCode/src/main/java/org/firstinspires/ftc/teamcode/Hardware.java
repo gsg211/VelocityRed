@@ -12,10 +12,11 @@ public class Hardware {
     public DcMotor backRightMotor = null;
     public DcMotor backLeftMotor = null;
     public DcMotor wheelMotor = null;
+    public DcMotor caruselMotor = null;
 
     public Servo servoSlider = null;
     public Servo servoGlisiera = null;
-    public Servo servoCarusel = null;
+    //public Servo servoCarusel = null;
     HardwareMap hardwareMap = null;
 
     public ElapsedTime Runtime = new ElapsedTime();
@@ -32,11 +33,11 @@ public class Hardware {
         backRightMotor=hardwareMap.get(DcMotor.class, "backRightMotor");
         backLeftMotor=hardwareMap.get(DcMotor.class, "backLeftMotor");
         wheelMotor=hardwareMap.get(DcMotor.class,"wheelMotor");
-
+        caruselMotor=hardwareMap.get(DcMotor.class,"caruselMotor");
         //servos
         servoSlider=hardwareMap.get(Servo.class,"servoSlider");
         servoGlisiera=hardwareMap.get(Servo.class,"servoglisiera");
-        servoCarusel=hardwareMap.get(Servo.class,"servoCarusel");
+
 
 
         //setup motor direction
@@ -45,18 +46,21 @@ public class Hardware {
         backRightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
         backLeftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         wheelMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        caruselMotor.setDirection(DcMotorSimple.Direction.FORWARD);
         //set motor mode
         frontRightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         frontLeftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         backRightMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         backLeftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         wheelMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        caruselMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         frontRightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         frontLeftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         backRightMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         backLeftMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         wheelMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        caruselMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         //set zero power behaviour
         frontRightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -64,6 +68,7 @@ public class Hardware {
         backRightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         backLeftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         wheelMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        caruselMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         //set motors to no power
         frontRightMotor.setPower(0);
@@ -71,6 +76,7 @@ public class Hardware {
         backRightMotor.setPower(0);
         backLeftMotor.setPower(0);
         wheelMotor.setPower(0);
+        caruselMotor.setPower(0);
 
     }
 

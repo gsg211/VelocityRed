@@ -16,10 +16,10 @@ public class MecanumMove extends OpMode {
     DcMotor backRightMotor;
     DcMotor backLeftMotor;
     DcMotor wheelMotor;
+    DcMotor caruselMotor;
 
     Servo servoSlider;
     CRServo servoGlisiera;
-    CRServo servoCarusel;
     //double motor_modifier=1;
     //double slider_speed=0.5;
     //double slider_position;
@@ -34,7 +34,7 @@ public class MecanumMove extends OpMode {
         wheelMotor=(DcMotor) hardwareMap.get("wheelMotor");
         servoSlider=(Servo) hardwareMap.get("servoSlider");
         servoGlisiera=(CRServo) hardwareMap.get("servoGlisiera");
-        servoCarusel=(CRServo) hardwareMap.get("servoCarusel");
+        caruselMotor=(DcMotor) hardwareMap.get("caruselMotor");
     }
     public void move_forward(){
             frontRightMotor.setPower(-gamepad1.left_stick_y);
@@ -44,7 +44,7 @@ public class MecanumMove extends OpMode {
     }
 
     public void collect(){
-        if(gamepad2.x) {
+        if(gamepad2.b) {
             wheelMotor.setPower(0.8);
         }
         else
@@ -67,43 +67,77 @@ public class MecanumMove extends OpMode {
 
     public void carusel_right(){
         if(gamepad2.right_bumper){
-            servoCarusel.setPower(-0.99);
+            caruselMotor.setPower(-0.6);
         }
         else
         {
-            servoCarusel.setPower(0);
+            caruselMotor.setPower(0);
         }
     }
-
+    /*
     public void throw_cube(){
-        if(gamepad2.dpad_right){
+        if(gamepad2.right_stick_y>0){
             //servoSlider.setDirection(Servo.Direction.REVERSE);
             servoSlider.setPosition(0.9);
 
         }
     }
-    public void back_cube(){
-        if(gamepad2.dpad_left){
-            //servoSlider.setDirection(Servo.Direction.REVERSE);
-            servoSlider.setPosition(-0.2);
+    */
 
+    /*
+    public void keep_cube(){
+        if(gamepad2.right_stick_y==0){
+            servoSlider.setPosition(0);
         }
     }
+    */
+    /*
+    public void move_cube(){
+        if(gamepad2.y){
+            servoSlider.setPosition(1);
+        }
+        else{
+            if(gamepad2.a){
+                servoSlider.setPosition(0);
+            }
+            else{
+                if(gamepad2.x){
+                    servoSlider.setPosition(0.6);
+                }
+            }
+        }
+    }
+    */
+    public void get_cube(){
+            //servoSlider.setDirection(Servo.Direction.REVERSE);
+        if(gamepad2.right_stick_y<0) {
+            servoSlider.setPosition(gamepad2.right_stick_y);
+        }
+        else{
+            servoSlider.setPosition(1);
+        }
+
+    }
     public void ridicare_glisiera() {
-        while (gamepad2.dpad_up){
+        if (gamepad2.dpad_up){
             servoGlisiera.setPower(-0.99);
         }
         //else{
-        //    servoGlisiera.setPower(0);
+           // servoGlisiera.setPower(0);
         //}
     }
 
     public void coborare_glisiera(){
-        while (gamepad1.dpad_down) {
+        if (gamepad2.dpad_down) {
             servoGlisiera.setPower(0.99);
         }
+        //servoGlisiera.setPower(0);
     }
 
+    public void stop_glisiera(){
+        if(gamepad2.x)
+            servoGlisiera.setPower(0);
+    }
 
     public void move_sideways(){
         frontRightMotor.setPower(-gamepad1.right_stick_x);
@@ -131,10 +165,13 @@ public class MecanumMove extends OpMode {
         rotate_clockwise();
         rotate_counterclockwise();
         collect();
-        throw_cube();
+        //throw_cube();
         ridicare_glisiera();
         coborare_glisiera();
         carusel_right();
-        back_cube();
+        get_cube();
+        //move_cube();
+       // keep_cube();
+        stop_glisiera();
     }
 }
